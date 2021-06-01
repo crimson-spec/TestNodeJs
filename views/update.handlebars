@@ -1,0 +1,10 @@
+{{#data}}
+<h1>Alterando informações do(a) {{name}}</h1>
+<form name="update" action="../controllerForm" method="POST">
+    <input type="number" name="document" id="document" placeholder="Insert your document:" value="{{document}}" required>
+    <input type="text" name="name" id="name" placeholder="Insert your name:" value="{{name}}" required>
+    <input type="date" name="birth" id="birth" placeholder="Insert your bithday:" value="{{birth}}" required>
+    <input type="number" name="phone" id="phone" placeholder="Insert your phone:"  value="{{phone}}"required>
+    <input type="submit" name="bntSubmit" id="bntSubmit" value="Atualizar">
+</form>
+{{/data}}

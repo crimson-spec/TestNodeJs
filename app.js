@@ -40,5 +40,20 @@ app.get('/', function(req,res){
 })
 
 app.get('/update/:id', function(req,res){
-    res.render('update', {id: req.params.id})
+    sql.query('SELECT * FROM clientes WHERE document=?', [req.params.id], function(err, results, fields){
+        if(err) console.log(err)
+        else res.render('update', {data: results})
+    })
+    
+})
+
+app.post('/controllerForm', urlencoded, function(req,res){
+    sql.query('UPDATE clientes SET document=?, name=?, birth=?, phone=? WHERE document=?',
+    req.params.document,
+    req.params.name,
+    req.params.birth,
+    req.params.phone,
+    req.params.document,
+    )
+    res.redirect('/')
 })
