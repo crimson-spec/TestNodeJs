@@ -7,6 +7,8 @@
             <td>NOME COMPLETO</td>
             <td>DATA DE NASCIMENTO</td>
             <td>TELEFONE</td>
+            <td>EDITAR</td>
+            <td>EXCLUIR</td>
         </tr>
         {{#data}}
         <tr>
@@ -14,6 +16,8 @@
             <td>{{name}}</td>
             <td>{{birth}}</td>
             <td>{{phone}}</td>
+            <td><a><button>Edit</button></a></td>
+            <td><a><button>Delete</button></a></td>
         </tr>
         {{/data}}
     </table>

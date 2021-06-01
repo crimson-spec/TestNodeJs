@@ -1,10 +1,11 @@
 const express = require('express')
 const handleBars = require('express-handlebars')
-const { urlencoded } = require('body-parser')
+const bodyParser = require('body-parser')
 const mysql = require('mysql')
 
 const port = 3000
 const app = express()
+const urlencodeParser = bodyParser.urlencoded({extended:false})
 
 //Start
 app.listen(port, function(req,res){
@@ -14,7 +15,7 @@ app.listen(port, function(req,res){
 //Conection
 const sql = mysql.createPool({
     host:'localhost',
-    database: 'test',
+    database:'test',
     user:'root',
     password:'',
     port:3306
@@ -40,20 +41,41 @@ app.get('/', function(req,res){
 })
 
 app.get('/update/:id', function(req,res){
-    sql.query('SELECT * FROM clientes WHERE document=?', [req.params.id], function(err, results, fields){
+    sql.query('SELECT * FROM clientes WHERE document=?', [req.params.id], 
+    function(err, results, fields){
         if(err) console.log(err)
         else res.render('update', {data: results})
     })
     
 })
 
-app.post('/controllerForm', urlencoded, function(req,res){
+app.get('/insert', function(req,res){
+    res.render('update')
+})
+
+app.post('/controllerInsert', urlencodeParser, function(req,res){
+    sql.query('INSERT INTO clientes VALUES(?,?,?,?)',
+    [
+        req.body.document,
+        req.body.name,
+        req.body.birth,
+        req.body.phone
+    ]), function(err, results, fields){
+        if(err) console.log(err)
+        else res.redirect('/')
+    }
+})
+
+app.post('controllerUpdate', urlencodeParser, function(req,res){
     sql.query('UPDATE clientes SET document=?, name=?, birth=?, phone=? WHERE document=?',
-    req.params.document,
-    req.params.name,
-    req.params.birth,
-    req.params.phone,
-    req.params.document,
-    )
-    res.redirect('/')
+    [
+        req.body.document,
+        req.body.name,
+        req.body.birth,
+        req.body.phone,
+        req.body.document
+    ]), function(err, results, fields){
+        if(err) console.log(err)
+        else res.redirect('/')
+    }
 })
