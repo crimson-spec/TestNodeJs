@@ -53,6 +53,14 @@ app.get('/insert', function(req,res){
     res.render('update')
 })
 
+app.get('/delete/:id', function(req,res){
+    sql.query('DELETE FROM clientes WHERE document=?', [req.params.id], 
+    function(err, results, fields){
+        if(err) console.log(err)
+        else res.redirect('/')
+    })
+})
+
 app.post('/controllerInsert', urlencodeParser, function(req,res){
     sql.query('INSERT INTO clientes VALUES(?,?,?,?)',
     [
@@ -66,7 +74,7 @@ app.post('/controllerInsert', urlencodeParser, function(req,res){
     }
 })
 
-app.post('controllerUpdate', urlencodeParser, function(req,res){
+app.post('/controllerUpdate', urlencodeParser, function(req,res){
     sql.query('UPDATE clientes SET document=?, name=?, birth=?, phone=? WHERE document=?',
     [
         req.body.document,
