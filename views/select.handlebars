@@ -1,0 +1,19 @@
+<h1>Painel Principal</h1>
+<div class="data">
+    <table>
+        <tr>
+            <td>DOCUMENTO</td>
+            <td>NOME COMPLETO</td>
+            <td>DATA DE NASCIMENTO</td>
+            <td>TELEFONE</td>
+        </tr>
+        {{#data}}
+        <tr>
+            <td>{{document}}</td>
+            <td>{{name}}</td>
+            <td>{{birth}}</td>
+            <td>{{phone}}</td>
+        </tr>
+        {{/data}}
+    </table>
+</div>
